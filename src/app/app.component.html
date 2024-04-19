@@ -43,7 +43,7 @@
     </table>
   }
   <button type="button" (click)="dialog.showModal()"
-    class="block bg-blue px-16 py-5 mt-7 text-2xl font-semibold text-white ml-auto outline-none rounded">
+    class="block bg-blue/85 hover:bg-blue transition-colors px-16 py-5 mt-7 text-2xl font-semibold text-white ml-auto outline-none rounded">
     Cadastrar
   </button>
 
@@ -51,7 +51,7 @@
   mt-24 backdrop:bg-black/20 backdrop:backdrop-blur-sm rounded-sm">
     <div class="flex">
       <h1 class="text-2xl font-semibold">Cadastro de Infraestrutura</h1>
-      <button type="button" (click)="infraForm.resetForm(); dialog.close();"
+      <button type="button" (click)="resetForm(infraForm); dialog.close()"
       class="block ml-auto px-2 bg-gray-100 mb-3 text-3xl aspect-square rounded-full
       backdrop:bg-red-700">
         ×

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InfraestructureComponent } from './components/infraestructure/infraestructure.component';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -21,6 +21,11 @@ export class AppComponent implements AfterViewInit {
     functionalAmount: 0,
     nonFunctionalAmount: 0
   }
+  cdRef!: ChangeDetectorRef;
+
+  constructor(private _cdRef: ChangeDetectorRef){
+    this.cdRef = _cdRef;
+  }
 
   ngAfterViewInit(): void {
     // (this.dialogRef.nativeElement as HTMLDialogElement).showModal();
@@ -28,13 +33,24 @@ export class AppComponent implements AfterViewInit {
 
   headers = ['Designação', 'Funcionais', 'Não Funcionais', 'Número Total'];
   infras: Infraestructure[] = [
-    { name: 'Salas de Aula Teóricas', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Salas de Informática', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Laboratórios de Automação', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Laboratórios de Biologia', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Laboratórios de CAD', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Oficinas de Construções Mecânicas', functionalAmount: 0, nonFunctionalAmount: 0 },
-    { name: 'Oficinas de Máquinas e Motores', functionalAmount: 0, nonFunctionalAmount: 0 }
+    { name: 'Salas de Aula Teóricas', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Salas de Informática', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Automação', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Biologia', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de CAD', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de CNC', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Electrónica', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Energias Renováveis', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Física', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Frio e Climatização', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Instalações Eléctricas', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Máquinas Eléctricas', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Metalomecânica', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Química', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Laboratórios de Telecomunicações', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Oficinas de Construções Mecânicas', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Oficinas de Máquinas e Motores', functionalAmount: 1, nonFunctionalAmount: 1 },
+    { name: 'Oficinas de Soldadura', functionalAmount: 1, nonFunctionalAmount: 1 }
   ];
 
   get total(){
@@ -43,10 +59,17 @@ export class AppComponent implements AfterViewInit {
 
   onSubmit(form: NgForm){
     this.infras.push(form.value);
-    form.resetForm();
+    this.resetForm(form);
   }
 
   trimName(){
     this.infraFormModel.name = this.infraFormModel.name.trim();
+  }
+
+  resetForm(form: NgForm){
+    form.reset();
+    this.cdRef.detectChanges();
+    this.infraFormModel.functionalAmount = 0;
+    this.infraFormModel.nonFunctionalAmount = 0;
   }
 }
