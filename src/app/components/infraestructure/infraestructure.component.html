@@ -1,0 +1,40 @@
+<tr class="grid grid-cols-[1fr_repeat(3,14%)] items-center gap-x-8 px-6 border-b-2 border-x-2 border-gray-300/70 bg-light-gray/40 relative">
+  <td class="py-5">
+    @if(inEditMode){
+      <input #infraNameInput #infraNameModel="ngModel" type="text" placeholder="Nome da infraestrutura" autofocus maxlength="40" required
+      [(ngModel)]="name" name="name" id="name" class="input py- w-full" (blur)="trimName()"
+      [class.border-red-600]="infraNameModel.dirty && infraNameModel.invalid"
+      [class.border-green-600]="infraNameModel.dirty && infraNameModel.valid" />
+      @if(infraNameModel.dirty && infraNameModel.invalid){
+        <p class="text-sm mt-1 text-red-600">
+          O nome é obrigatório
+        </p>
+      }
+    } @else {
+      <span>{{name}}</span>
+    }
+  </td>
+  <td class="">
+    <input #functional type="number" name="functionalAmount" [(ngModel)]="functionalAmount" min="0" [value]="functionalAmount"
+    (blur)="resetFunctionalAmount()" class="border border-gray-400/70 px-3 py-2 w-full outline-none rounded-sm
+    disabled:border-gray-300 disabled:text-gray-500/75"
+    [disabled]="inputsDisabled" />
+    <!-- {{functionalAmount}} -->
+  </td>
+  <td>
+    <input #nonFunctional type="number" name="nonFunctionalAmount" [(ngModel)]="nonFunctionalAmount" min="0" [value]="nonFunctionalAmount"
+    (blur)="resetNonFunctionalAmount()" class="border border-gray-400/70 px-3 py-2 w-full outline-none rounded-sm
+    disabled:border-gray-300 disabled:text-gray-500/75"
+    [disabled]="inputsDisabled" />
+    <!-- {{nonFunctionalAmount}} -->
+  </td>
+  <td>
+    <input type="number" name="" id="" min="0" [value]="total" [disabled]="!inputsDisabled"
+    class="border border-gray-400/70 px-3 py-2 w-full outline-none
+    disabled:border-gray-300 disabled:text-gray-700" />
+  </td>
+  <td class="absolute left-0 -translate-x-[60%] space-x-1">
+    <button type="button" (click)="toggleEditMode()"
+    class="bg-gray-300/40 backdrop-blur-sm w-11 aspect-square shadow-md rounded-full">Edit</button>
+  </td>
+</tr>
